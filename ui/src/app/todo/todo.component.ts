@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TodoService } from '../services/todo.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo',
@@ -12,14 +11,14 @@ export class TodoComponent {
   @Input() todo: any;
   @Input() index: any;
   @Output() deleteRequested = new EventEmitter<string>();
-  @Output() editRequested = new EventEmitter<string>();
 
-  constructor(private todoService: TodoService) {}
+  constructor(private router: Router) {}
   
   onDelete(): void {
     this.deleteRequested.emit(this.todo._id);
   }
+
   onEdit(): void {
-    this.editRequested.emit(this.todo._id);
+    this.router.navigate(['/todo', this.todo._id]);
   }
 }
